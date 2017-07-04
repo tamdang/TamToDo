@@ -4,6 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="todo.js"></script>
     <link rel="stylesheet" href="todo.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
     <h2>Todo</h2>
@@ -23,6 +24,7 @@
                placeholder="add new todo here">
         <input class="btn-primary" type="submit" value="add">
       </form>
+      <button type="button" class="btn btn-danger" ng-click="todoList.removeTodo()">Remove</button>
     </div>
   </body>
 </html>
