@@ -8,28 +8,32 @@
   </head>
   <body>
       <div class="table-responsive" ng-controller="TodoListController as todoList">
-        <h2>Todo</h2>
-        <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-        [ <a href="" ng-click="todoList.archive()">archive</a> ]
+        <div class="alert alert-info">
+          <strong>Get more done with us</strong>
+        </div>
         <table class="table table-striped">
           <thead>
             <tr>
-              <th class="col-md-1 col-sm-1 col-xs-1">Select <input type="checkbox" ng-model="todoList.isAllSelected" ng-change="todoList.selectAll()"></th>
+              <th class="col-md-1 col-sm-1 col-xs-1">Select
+                <input type="checkbox" ng-model="todoList.isAllSelected" ng-change="todoList.selectAll()">
+              </th>
               <th class="col-md-11 col-sm-11 col-xs-11">Description</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="todo in todoList.todos" >
               <td><input type="checkbox" ng-model="todo.selected" ng-change="todoList.selectChanged()"></td>
-              <td ng-click="todoList.toggle(todo)"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
+              <td ng-click="todoList.toggle(todo)" class="rowCursor"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
             </tr>
             <tr>
-              <td><button type="button" class="btn btn-info" ng-click="todoList.showAddForm()">+</button></td>
+              <td><button type="button" class="btn {{todoList.isAddFormShown?'btn-default':'btn-primary'}}" ng-click="todoList.showAddForm()">
+                {{todoList.isAddFormShown?"Cancel":"+"}}</button></td>
               <td>
-                <form ng-submit="todoList.addTodo()" ng-show="todoList.isAddFormShown">
-                        <input type="text" ng-model="todoList.todoText"  size="30"
-                        placeholder="add new todo">
-                        <input class="btn-primary" type="submit" value="add" hidden="true">
+                <form ng-submit="todoList.addTodo()" ng-show="todoList.isAddFormShown" class="form">
+                  <div class="form-group">
+                    <input type="text" ng-model="todoList.todoText" class="form-control" placeholder="add new todo" required>
+                    <input class="btn-primary" type="submit" value="add" hidden="true">
+                  </div>
                 </form>
               </td>
             </tr>

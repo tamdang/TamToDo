@@ -1,10 +1,7 @@
 angular.module('todoApp', [])
   .controller('TodoListController', function() {
     var todoList = this;
-    todoList.todos = [
-      {text:'learn AngularJS', done:true, selected: false},
-      {text:'build an AngularJS app', done:false, selected: false},
-      {text:'finish the test', done: false, selected: false}];
+    todoList.todos = []
     todoList.isAllSelected = false
     todoList.isAddFormShown = false
     todoList.isAnySelected = false
@@ -37,7 +34,7 @@ angular.module('todoApp', [])
       angular.forEach(todoList.todos, function(todo) {
         todo.selected = todoList.isAllSelected
       })
-      todoList.isAnySelected = todoList.isAllSelected
+      todoList.isAnySelected = todoList.isAllSelected && (todoList.todos.length > 0)
     }
 
     todoList.toggle = (todo) => {
