@@ -57,4 +57,7 @@ angular.module('todoApp', [])
         if (!todo.done) todoList.todos.push(todo);
       });
     };
-  });
+  })
+  .filter('anotate',()=>(input, done)=>{
+      return input + (done? ' - Cool'  : ' - To be done')
+  })

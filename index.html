@@ -27,7 +27,7 @@
                   <input type="checkbox" ng-model="todo.selected" ng-change="todoList.selectChanged()">
                 </div>
               </td>
-              <td ng-click="todoList.toggle(todo)" class="rowCursor"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
+              <td ng-click="todoList.toggle(todo)" class="rowCursor"><span class="done-{{todo.done}}">{{todo.text | anotate: todo.done}}</span></td>
             </tr>
             <tr>
               <td><button type="button" class="btn {{todoList.isAddFormShown?'btn-default':'btn-primary'}}" ng-click="todoList.showAddForm()">
