@@ -15,35 +15,23 @@
           <thead>
             <tr>
               <th class="col-md-1 col-sm-1 col-xs-1">Select
-                <input type="checkbox" ng-model="todoList.isAllSelected" ng-change="todoList.selectAll()">
+                <input type="checkbox">
               </th>
               <th class="col-md-11 col-sm-11 col-xs-11">Description</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="todo in todoList.todos" class="{{todo.selected && 'danger'}}">
+            <tr ng-repeat="todo in todos">
               <td>
                 <div class="col-lg-3 center-block">
-                  <input type="checkbox" ng-model="todo.selected" ng-change="todoList.selectChanged()">
+                  <input type="checkbox">
                 </div>
               </td>
-              <td ng-click="todoList.toggle(todo)" class="rowCursor"><span class="done-{{todo.done}}">{{todo.text | anotate: todo.done}}</span></td>
-            </tr>
-            <tr>
-              <td><button type="button" class="btn {{todoList.isAddFormShown?'btn-default':'btn-primary'}}" ng-click="todoList.showAddForm()">
-                {{todoList.isAddFormShown?"Cancel":"+"}}</button></td>
-              <td>
-                <form ng-submit="todoList.addTodo()" ng-show="todoList.isAddFormShown" class="form">
-                  <div class="form-group">
-                    <input type="text" ng-model="todoList.todoText" class="form-control" placeholder="add new todo" required>
-                    <input class="btn-primary" type="submit" value="add" hidden="true">
-                  </div>
-                </form>
-              </td>
+              <td class="rowCursor"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
             </tr>
           </tbody>
         </table>
-        <button type="button" class="btn btn-danger {{todoList.isAnySelected? 'active' : 'disabled'}}" ng-click="todoList.removeTodo()">Remove</button>
+        <button type="button" class="btn btn-primary" add-todo>Add</button>
       </div>
   </body>
 </html>

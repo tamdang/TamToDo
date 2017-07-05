@@ -1,63 +1,44 @@
-angular.module('todoApp', [])
-  .controller('TodoListController', function() {
-    var todoList = this;
-    todoList.todos = []
-    todoList.isAllSelected = false
-    todoList.isAddFormShown = false
-    todoList.isAnySelected = false
+var module = angular.module('todoApp', [])
 
-    todoList.addTodo = function() {
-      todoList.todos.push({text:todoList.todoText, done:false});
-      todoList.todoText = '';
-    };
-
-    todoList.selectChanged = () => {
-      var any = false
-      var all = true
-      angular.forEach(todoList.todos, todo=>{
-        any = todo.selected ? true : any
-        all = todo.selected ? all : false
-      })
-      todoList.isAnySelected = any
-      todoList.isAllSelected = all
-    }
-
-    todoList.removeTodo = () => {
-      todoList.todos = todoList.todos.filter(todo=>!todo.selected)
-      todoList.isAnySelected = false
-    }
-
-    todoList.showAddForm = () => {
-      todoList.isAddFormShown = ! todoList.isAddFormShown
-    }
-
-    todoList.selectAll = () => {
-      angular.forEach(todoList.todos, function(todo) {
-        todo.selected = todoList.isAllSelected
-      })
-      todoList.isAnySelected = todoList.isAllSelected && (todoList.todos.length > 0)
-    }
-
-    todoList.toggle = (todo) => {
-      todo.done = !todo.done
-    }
-
-    todoList.remaining = function() {
-      var count = 0;
-      angular.forEach(todoList.todos, function(todo) {
-        count += todo.done ? 0 : 1;
-      });
-      return count;
-    };
-
-    todoList.archive = function() {
-      var oldTodos = todoList.todos;
-      todoList.todos = [];
-      angular.forEach(oldTodos, function(todo) {
-        if (!todo.done) todoList.todos.push(todo);
-      });
-    };
+module.controller('TodoListController', ['$scope','Todo', function(scope, Todo){
+  scope.$on('todos.add', function( event ) {
+    scope.todos = Todo.todos
+    console.log(scope.todos)
   })
-  .filter('anotate',()=>(input, done)=>{
-      return input + (done? ' - Cool'  : ' - To be done')
-  })
+  scope.todos = Todo.todos
+}])
+
+module.directive( "addTodo", [ 'Todo', function(Todo) {
+   return {
+     restrict: "A",
+     link: function( scope, element, attrs ) {
+       element.on('click', function() {
+         Todo.addTodo( {text: 'do 1', selected: false, done: false}, )
+       });
+     }
+   }
+}])
+
+module.factory('Todo',['$rootScope', function($rootScope){
+  var Todo = new Object()
+  Todo.todos = [
+    {text: 'do 1', selected: false, done: false},
+    {text: 'do 2', selected: false, done: false}
+  ]
+  Todo.addTodo = function(todo){
+    Todo.todos.push(todo)
+    $rootScope.$broadcast('todos.add')
+  }
+  Todo.toggleTodo = function(todo, select){
+    angular.forEach(this.todos, (td)=>{
+      if(td == todo){
+        td.selected = select
+      }
+    })
+  }
+  Todo.removeTodo = function(){
+    Todo.todos = Todo.todos.filter(todo=>!todo.selected)
+    $rootScope.$broadcast('todos.remove')
+  }
+  return Todo
+}])
