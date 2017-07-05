@@ -5,6 +5,8 @@ angular.module('todoApp', [])
       {text:'learn AngularJS', done:true, selected: false},
       {text:'build an AngularJS app', done:false, selected: false},
       {text:'finish the test', done: false, selected: false}];
+    todoList.isAllSelected = false
+    todoList.isAddFormShown = false
 
     todoList.addTodo = function() {
       todoList.todos.push({text:todoList.todoText, done:false});
@@ -13,6 +15,20 @@ angular.module('todoApp', [])
 
     todoList.removeTodo = () => {
       todoList.todos = todoList.todos.filter(todo=>!todo.selected)
+    }
+
+    todoList.showAddForm = () => {
+      todoList.isAddFormShown = ! todoList.isAddFormShown
+    }
+
+    todoList.selectAll = () => {
+      angular.forEach(todoList.todos, function(todo) {
+        todo.selected = todoList.isAllSelected
+      })
+    }
+
+    todoList.toggle = (todo) => {
+      todo.done = !todo.done
     }
 
     todoList.remaining = function() {
