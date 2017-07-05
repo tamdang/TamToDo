@@ -7,11 +7,23 @@ angular.module('todoApp', [])
       {text:'finish the test', done: false, selected: false}];
     todoList.isAllSelected = false
     todoList.isAddFormShown = false
+    todoList.isAnySelected = false
 
     todoList.addTodo = function() {
       todoList.todos.push({text:todoList.todoText, done:false});
       todoList.todoText = '';
     };
+
+    todoList.selectChanged = () => {
+      var any = false
+      var all = true
+      angular.forEach(todoList.todos, todo=>{
+        any = todo.selected ? true : any
+        all = todo.selected ? all : false
+      })
+      todoList.isAnySelected = any
+      todoList.isAllSelected = all
+    }
 
     todoList.removeTodo = () => {
       todoList.todos = todoList.todos.filter(todo=>!todo.selected)
@@ -25,6 +37,7 @@ angular.module('todoApp', [])
       angular.forEach(todoList.todos, function(todo) {
         todo.selected = todoList.isAllSelected
       })
+      todoList.isAnySelected = todoList.isAllSelected
     }
 
     todoList.toggle = (todo) => {

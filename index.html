@@ -20,7 +20,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="todo in todoList.todos" >
-              <td><input type="checkbox" ng-model="todo.selected"></td>
+              <td><input type="checkbox" ng-model="todo.selected" ng-change="todoList.selectChanged()"></td>
               <td ng-click="todoList.toggle(todo)"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
             </tr>
             <tr>
@@ -28,15 +28,14 @@
               <td>
                 <form ng-submit="todoList.addTodo()" ng-show="todoList.isAddFormShown">
                         <input type="text" ng-model="todoList.todoText"  size="30"
-                        placeholder="add new todo here">
+                        placeholder="add new todo">
                         <input class="btn-primary" type="submit" value="add" hidden="true">
                 </form>
               </td>
             </tr>
           </tbody>
         </table>
-
-        <button type="button" class="btn btn-danger" ng-click="todoList.removeTodo()">Remove</button>
+        <button type="button" class="btn btn-danger {{todoList.isAnySelected? 'active' : 'disabled'}}" ng-click="todoList.removeTodo()">Remove</button>
       </div>
   </body>
 </html>
