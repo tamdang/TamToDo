@@ -24,6 +24,7 @@ angular.module('todoApp', [])
 
     todoList.removeTodo = () => {
       todoList.todos = todoList.todos.filter(todo=>!todo.selected)
+      todoList.isAnySelected = false
     }
 
     todoList.showAddForm = () => {
