@@ -11,14 +11,24 @@
     <div ng-controller="TodoListController as todoList">
       <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
       [ <a href="" ng-click="todoList.archive()">archive</a> ]
-      <ul class="unstyled">
-        <li ng-repeat="todo in todoList.todos">
-          <label class="checkbox">
-            <input type="checkbox" ng-model="todo.done">
-            <span class="done-{{todo.done}}">{{todo.text}}</span>
-          </label>
-        </li>
-      </ul>
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Description</th>
+              <th>Complete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="todo in todoList.todos">
+              <td><input type="checkbox" ng-model="todo.selected"></td>
+              <td><span class="done-{{todo.done}}">{{todo.text}}</span></td>
+              <td><input type="checkbox" ng-model="todo.done"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <form ng-submit="todoList.addTodo()">
         <input type="text" ng-model="todoList.todoText"  size="30"
                placeholder="add new todo here">

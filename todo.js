@@ -2,9 +2,9 @@ angular.module('todoApp', [])
   .controller('TodoListController', function() {
     var todoList = this;
     todoList.todos = [
-      {text:'learn AngularJS', done:true},
-      {text:'build an AngularJS app', done:false},
-      {text:'finish the test', done: false}];
+      {text:'learn AngularJS', done:true, selected: false},
+      {text:'build an AngularJS app', done:false, selected: false},
+      {text:'finish the test', done: false, selected: false}];
 
     todoList.addTodo = function() {
       todoList.todos.push({text:todoList.todoText, done:false});
@@ -12,8 +12,7 @@ angular.module('todoApp', [])
     };
 
     todoList.removeTodo = () => {
-      todos = [{text:'learn AngularJS', done:true},{text:'build an AngularJS app', done:false}]
-      todoList.todos = todoList.todos.filter(todo=>!todos.map(i=>i.text).includes(todo.text))
+      todoList.todos = todoList.todos.filter(todo=>!todo.selected)
     }
 
     todoList.remaining = function() {
