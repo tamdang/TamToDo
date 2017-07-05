@@ -22,7 +22,11 @@
           </thead>
           <tbody>
             <tr ng-repeat="todo in todoList.todos" >
-              <td><input type="checkbox" ng-model="todo.selected" ng-change="todoList.selectChanged()"></td>
+              <td>
+                <div class="col-lg-3 center-block">
+                  <input type="checkbox" ng-model="todo.selected" ng-change="todoList.selectChanged()">
+                </div>
+              </td>
               <td ng-click="todoList.toggle(todo)" class="rowCursor"><span class="done-{{todo.done}}">{{todo.text}}</span></td>
             </tr>
             <tr>
