@@ -79,10 +79,7 @@ module.directive( "remove", [ 'Todo', function(Todo) {
 
 module.factory('Todo',['$rootScope', function($rootScope){
   var Todo = new Object()
-  Todo.todos = [
-    {text: 'do 1', selected: false, done: false},
-    {text: 'do 2', selected: false, done: false}
-  ]
+  Todo.todos = []
   Todo.addTodo = function(todo){
     Todo.todos.push(todo)
     $rootScope.$broadcast('todos.add')
